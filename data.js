@@ -1,5 +1,5 @@
 // ▼▼▼ URL Cloudflare Worker — вставь свой после деплоя ▼▼▼
-const API = 'https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev';
+const API = 'https://xoras-proxy.vercel.app';
 
 // Типы занятий из API МГСУ
 const KIND_MAP = {
