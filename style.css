@@ -45,11 +45,15 @@ html {
 body {
   min-height: 100vh;
   min-height: 100dvh;
+  height: 100dvh;
   width: 100%;
   margin: 0; padding: 0;
   background: var(--bg);
   color: var(--t1);
   transition: background .3s, color .3s;
+  overflow: hidden;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
 }
 button { font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; user-select: none; border: none; background: none; }
 a { color: rgba(var(--acc),1); text-decoration: none; }
@@ -86,6 +90,9 @@ input { font-family: inherit; }
   border-radius: 14px;
   box-shadow: 0 4px 24px rgba(0,0,0,.12);
   transition: background .3s, box-shadow .3s;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
 }
 
 [data-dark] .nav {
@@ -158,11 +165,15 @@ input { font-family: inherit; }
 
 /* ── Page (scrollable area) ─────────────────────── */
 .page {
-  position: relative;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
   z-index: 1;
   padding: calc(env(safe-area-inset-top, 0px) + 68px) 14px calc(env(safe-area-inset-bottom, 0px) + 90px);
   background: transparent;
-  min-height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
 }
 .page > .view { max-width: 660px; margin: 0 auto; }
 
@@ -434,12 +445,12 @@ input { font-family: inherit; }
   position: fixed;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 2.5px);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateZ(0);
+  -webkit-transform: translateX(-50%) translateZ(0);
   z-index: 500;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  
   height: 56px;
   min-width: 280px;
   max-width: 500px;
@@ -449,9 +460,10 @@ input { font-family: inherit; }
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
   box-shadow: 0 8px 32px rgba(0,0,0,.16);
-  padding: 6px 6px;  
+  padding: 6px 6px;
   overflow: hidden;
   transition: background .3s, box-shadow .3s;
+  will-change: transform;
 }
 [data-dark] .dock {
   background: rgba(var(--acc,0,122,255), 0.07);
