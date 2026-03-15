@@ -1,5 +1,5 @@
 // ▼▼▼ URL Cloudflare Worker ▼▼▼
-const API = 'const API = 'https://rough-feather-213e.gsoft8161.workers.dev';';
+const API = 'https://xoras-proxy.vercel.app';
 
 // Типы занятий из API МГСУ
 const KIND_MAP = {
