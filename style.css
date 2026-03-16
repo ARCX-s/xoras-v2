@@ -83,7 +83,7 @@ input { font-family: inherit; }
   border: 1px solid rgba(255,255,255,0.25);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-radius: 14px;
+  border-radius: 28px;
   box-shadow: 0 4px 24px rgba(0,0,0,.12);
   transition: background .3s, box-shadow .3s;
   transform: translateZ(0);
