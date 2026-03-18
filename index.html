@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Xoras">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#eef0f6" id="theme-color-meta">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Xoras - расписание пар</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F9VNM05WTB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-F9VNM05WTB');
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="additions.css">
+</head>
+<body>
+
+<div class="orbs" aria-hidden="true">
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+  <div class="orb o4"></div>
+  <div class="orb o5"></div>
+</div>
+
+<!-- TWO PILL NAV -->
+<div class="nav-wrap" id="nav-wrap">
+  <nav class="nav-logo g" id="nav-logo">
+    <button class="ib nav-back" id="btn-back" style="display:none" onclick="goHome()" aria-label="Назад">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <span class="nav-title" id="nav-title">Xoras</span>
+  </nav>
+  <div class="nav-btns g" id="nav-btns">
+    <button class="ib" id="btn-favorite" style="display:none" onclick="toggleFavorite(selGroup,selGroupName)" aria-label="Избранное">
+      <i class="fa-regular fa-star"></i>
+    </button>
+    <button class="ib" id="btn-theme" aria-label="Тема"><i class="fa-solid fa-moon"></i></button>
+    <button class="ib" id="btn-color" aria-label="Цвет"><i class="fa-solid fa-palette"></i></button>
+  </div>
+</div>
+
+<div class="cpanel g" id="cpanel">
+  <div class="cp-title">Неоновый акцент</div>
+  <div id="swatches"></div>
+</div>
+
+<div class="page" id="page">
+
+  <!-- HOME -->
+  <div class="view on" id="view-home">
+    <div class="search-hero-card g" id="search-hero-card">
+      <div class="shc-header">
+        <div class="shc-icon neon-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div class="shc-info">
+          <div class="shc-title">Поиск группы</div>
+          <div class="shc-sub">Найди свою группу и расписание</div>
+        </div>
+      </div>
+      <div class="search-wrap" style="margin-bottom:0">
+        <i class="fa-solid fa-magnifying-glass search-ico"></i>
+        <input class="search-inp g" type="search" id="group-search-input"
+          placeholder="Введите название группы..."
+          autocomplete="off" spellcheck="false" inputmode="search">
+      </div>
+      <div id="group-search-results" style="margin-top:10px">
+        <div class="empty" style="padding:14px 0 6px"><div class="empty-ico" style="font-size:26px;margin-bottom:8px">🔍</div>Введи от 2 символов</div>
+      </div>
+    </div>
+
+    <div id="today-widget"></div>
+
+    <div class="qa-wrap">
+      <div class="qa-title">Быстрый доступ</div>
+      <div class="quick-access" id="quick-access">
+
+        <!-- Расписание -->
+        <div class="qa-col">
+          <button class="qa-btn" id="qa-schedule-btn" onclick="showView('view-sched')">
+            <div class="qa-icon-badge">
+              <i class="fa-solid fa-book-open"></i>
+            </div>
+            <span class="qa-label">Расписание</span>
+          </button>
+        </div>
+
+        <!-- Избранное -->
+        <div class="qa-col qa-col-fav">
+          <button class="qa-btn" id="qa-fav-btn" onclick="toggleQuickFavorites()">
+            <div class="qa-icon-badge qa-icon-badge-gold">
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <span class="qa-label">Избранное</span>
+            <i class="fa-solid fa-chevron-down qa-chevron" id="qa-fav-arrow"></i>
+          </button>
+          <div class="quick-favorites g" id="quick-favorites" style="display:none">
+            <div id="quick-favorites-list"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Важные новости ── -->
+    <div class="news-section">
+      <div class="news-header">
+        <span class="news-heading">Важные новости</span>
+        <span class="news-all">Информация</span>
+      </div>
+      <div class="news-card g">
+        <div class="news-icon-wrap">
+          <i class="fa-regular fa-bell news-icon"></i>
+        </div>
+        <div class="news-body">
+          <div class="news-title">Расписание в разработке</div>
+          <div class="news-text">Сейчас доступно расписание для <strong>ИИЭСМ 1–4 курсов</strong>. Скоро будут добавлены все остальные институты и группы НИУ МГСУ.</div>
+          <div class="news-date">2025–2026 учебный год</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SCHEDULE -->
+  <div class="view" id="view-sched">
+    <div class="week-nav g" id="week-nav">
+      <button class="week-nav-btn" id="btn-week-prev" onclick="shiftWeek(-1)">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button class="week-nav-center" id="btn-week-label" onclick="toggleCalendar()">
+        <span id="week-label-text">...</span>
+        <i class="fa-solid fa-calendar-days" style="font-size:11px;opacity:.6"></i>
+      </button>
+      <button class="week-nav-btn" id="btn-week-next" onclick="shiftWeek(1)">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+    <div class="cal-popup g" id="cal-popup">
+      <div class="cal-header">
+        <button class="cal-nav-btn" id="cal-prev" onclick="calShiftMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <span class="cal-month-label" id="cal-month-label"></span>
+        <button class="cal-nav-btn" id="cal-next" onclick="calShiftMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      <div class="cal-weekdays">
+        <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+    </div>
+    <div class="day-scroll-wrap">
+      <div class="day-tabs" id="day-tabs"></div>
+    </div>
+    <button class="share-btn" onclick="shareSchedule()"><i class="fa-solid fa-share-nodes"></i> Поделиться</button>
+    <div id="sched-out"></div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="view" id="view-search">
+    <div class="search-wrap">
+      <i class="fa-solid fa-magnifying-glass search-ico"></i>
+      <input class="search-inp g" type="search" id="sinput"
+        placeholder="Предмет, преподаватель, аудитория…"
+        autocomplete="off" spellcheck="false">
+    </div>
+    <div id="search-out">
+      <div class="empty"><div class="empty-ico">🔍</div>Начни вводить...</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="view" id="view-about">
+    <div class="about-card g">
+      <div class="about-title">О сайте</div>
+      <p class="about-text">Неофициальное расписание для студентов <strong>НИУ МГСУ</strong>. Сделано студентом для студентов.</p>
+      <p class="about-text">Автор: <a href="https://t.me/dev25" target="_blank">Студент ИИЭСМ 3-13</a></p>
+      <p class="about-text">Данные: расписание МГСУ в реальном времени.</p>
+      <div class="legend">
+        <div class="leg-item"><div class="leg-dot" style="background:#5856d6"></div>Лекция</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#ff2d55"></div>Практика</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#ff9500"></div>Лабораторная</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#ff3b30"></div>КРП</div>
+      </div>
+      <button onclick="resetSelection()" style="margin-top:16px;width:100%;padding:12px;border-radius:100px;font-size:14px;font-weight:700;color:rgba(var(--acc),1);background:rgba(var(--acc),.1);border:1px solid rgba(var(--acc),.2);cursor:pointer;">
+        ↺ Сменить группу
+      </button>
+    </div>
+    <div class="disclaimer">
+      <strong>⚠️ Правовая информация.</strong>
+      Неофициальный студенческий ресурс, не аффилирован с НИУ МГСУ. Данные берутся из открытых источников МГСУ. За актуальность расписания ответственность не несётся.
+      <br><br>© 2025 <a href="https://t.me/xorasapp" target="_blank">@XorasApp</a>
+    </div>
+  </div>
+
+</div>
+
+<nav class="dock g" id="dock">
+  <div class="dock-slider"></div>
+  <button class="db on" data-v="view-home">
+    <i class="fa-solid fa-house"></i><span>Меню</span>
+  </button>
+  <button class="db" data-v="view-sched">
+    <i class="fa-solid fa-calendar-days"></i><span>Расписание</span>
+  </button>
+  <button class="db" data-v="view-search">
+    <i class="fa-solid fa-magnifying-glass"></i><span>Поиск</span>
+  </button>
+  <button class="db" data-v="view-about">
+    <i class="fa-solid fa-circle-info"></i><span>О сайте</span>
+  </button>
+</nav>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
